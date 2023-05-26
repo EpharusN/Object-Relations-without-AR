@@ -18,12 +18,57 @@ class Article
 
   def self.all
     @@all
-  end 
+  end
+end
+
+class Author
+  attr_reader :name
+  @@all = []
+
+  def initialize(name)
+    @name = name
+    @@all << self
+  end
+
+  def self.all
+    @@all
+  end
+
+  def articles
+    Article.all.select { |article| article.author == self }
+  end
+
+  def magazines
+    articles.map { |article| article.magazine }
+  end
+end
+
+class Magazine
+  attr_reader :name, :category
+  @@all = []
+
+  def initialize(name, category)
+    @name = name
+    @category = category
+    @@all << self
+  end
+
+  def self.all
+    @@all
+  end
+
+  def contributors
+    Article.all.select { |article| article.magazine == self }.map { |article| article.author }
+  end
 end
 
 magazine = Magazine.new("This is Ruby", "Programming")
 author = Author.new("Sophie")
 article = Article.new(author, magazine, "Programming Language")
 
-p article
-puts  Article.all
+p article.author
+p article.magazine
+p author.articles
+p author.magazines
+p magazine.contributors
+
