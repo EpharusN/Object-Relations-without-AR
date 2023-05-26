@@ -1,3 +1,7 @@
+#initialize article with author, magazine and title
+#returns name of author, magazine and title
+#used attr_reader sice author, magazine and title should not change
+
 require_relative 'magazine'
 require_relative 'author'
 
