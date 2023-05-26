@@ -2,7 +2,7 @@
 #name cannot be changed so use attr_reader
 #put author name hence sophie
 
-class Person
+class Author
     
     attr_reader :name
     def initialize name
@@ -10,4 +10,5 @@ class Person
     end
 end
 
-puts person = Person.new("Sophie")
+author = Author.new("Sophie")
+puts author.name
