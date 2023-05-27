@@ -89,6 +89,7 @@ end
     Article.all.each do |article|
         authors_count[article.author] += 1 if article.magazine == self#instance of the magazine
     end
+    #return an array of authors who have written more than 2 books
     authors_count.select{|author, count|count > 2}.key
 
   end
