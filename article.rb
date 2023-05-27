@@ -30,6 +30,11 @@ class Author
     @@all << self
   end
 
+  #create new instance of class with self
+  def add_article(magazine, title)
+    Article.new(self, magazine, title)
+  end 
+
   def self.all
     @@all
   end
