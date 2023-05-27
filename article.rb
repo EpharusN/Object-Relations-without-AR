@@ -30,10 +30,18 @@ class Author
     @@all << self
   end
 
-  #create new instance of class with self
+  #create new article 
   def add_article(magazine, title)
-    Article.new(self, magazine, title)
+    Article.new(author, magazine, title)# you can use self in author it will work the same way
   end 
+
+  #syntax for returning unique array of string in ruby
+  #array.map{|x/element|what you want to modify or transform/magazine x.to_}.uniq
+  #magazines.map{|magazine|magazine.category.to_upcase}.uniq
+  def topic_areas 
+    magazines.map{|magazine| magazine.category}
+  end
+
 
   def self.all
     @@all
@@ -70,10 +78,11 @@ end
 magazine = Magazine.new("This is Ruby", "Programming")
 author = Author.new("Sophie")
 article = Article.new(author, magazine, "Programming Language")
-
+author.add_article(magazine, "Ruby introduction")
 p article.author
 p article.magazine
 p author.articles
 p author.magazines
 p magazine.contributors
+p author.add_article
 
