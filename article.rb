@@ -1,4 +1,4 @@
-#initialize article with author, magazine and title
+#initialize article instance with author, magazine and title
 #returns name of author, magazine and title
 #used attr_reader sice author, magazine and title should not change
 
@@ -32,16 +32,15 @@ class Author
 
   #create new article 
   def add_article(magazine, title)
-    Article.new(author, magazine, title)# you can use self in author it will work the same way
+    Article.new(self, magazine, title)# you can use self in author it will work the same way
   end 
 
   #syntax for returning unique array of string in ruby
   #array.map{|x/element|what you want to modify or transform/magazine x.to_}.uniq
   #magazines.map{|magazine|magazine.category.to_upcase}.uniq
   def topic_areas 
-    magazines.map{|magazine| magazine.category}
+    magazines.map{|magazine| magazine.category}.uniq #to return a uniq array
   end
-
 
   def self.all
     @@all
@@ -83,11 +82,12 @@ end
   def contributors
     Article.all.select { |article| article.magazine == self }.map { |article| article.author }
   end
+
   def contributing_authors
     authors_count = Hash.new(0)
 
     Article.all.each do |article|
-        authors_count[article.author] += 1 if article.magazine == author #self
+        authors_count[article.author] += 1 if article.magazine == self#instance of the magazine
     end
     authors_count.select{|author, count|count > 2}.key
 
@@ -103,5 +103,5 @@ p article.magazine
 p author.articles
 p author.magazines
 p magazine.contributors
-p author.add_article
+p author.add_article(magazine, "Ruby introduction")
 
