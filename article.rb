@@ -69,9 +69,28 @@ class Magazine
   def self.all
     @@all
   end
+#find syntax collection/article/magazine/author.find {|element/magazine/article|condition?/true/even}
+def self.find_by_name(name)
+    @@all.find{|magazine|magazine.name == name}
+
+end
+
+
+def article_titles
+    Article.all.select {|article|article.magazine == author}.map {|article|article.title}
+end
 #Returns an array of Author instances who have written for this magazine
   def contributors
     Article.all.select { |article| article.magazine == self }.map { |article| article.author }
+  end
+  def contributing_authors
+    authors_count = Hash.new(0)
+
+    Article.all.each do |article|
+        authors_count[article.author] += 1 if article.magazine == author #self
+    end
+    authors_count.select{|author, count|count > 2}.key
+
   end
 end
 
